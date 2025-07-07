@@ -24,7 +24,7 @@ const WhyPaulDeltaArc = () => {
       <div className='max-w-[1400px] mx-auto px-4 w-full'>
         {/* Header */}
         <div className='text-center mb-8'>
-          <h2 className='text-3xl font-bold text-[#2c3e50] mb-2'>Why Paul Delta Arc?</h2>
+          <h2 className='text-3xl font-bold text-[#2c3e50] mb-2'>Why &apos Paul Delta Arc&apos?</h2>
           <div className='w-20 h-1 bg-gradient-to-r from-teal-400 to-teal-600 mx-auto'></div>
         </div>
 

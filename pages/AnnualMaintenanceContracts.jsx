@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Check, Shield, Zap, DollarSign } from 'lucide-react';
+import Footer from '../components/Footer'
 
 const AnnualMaintenanceContracts = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -34,7 +35,7 @@ const AnnualMaintenanceContracts = () => {
           setIsAutoPlaying(false);
         }
       },
-      { 
+      {
         threshold: 0.3, // Require 30% visibility to consider it "in view"
         rootMargin: '-50px 0px' // Add some margin to be more strict about visibility
       }
@@ -45,6 +46,7 @@ const AnnualMaintenanceContracts = () => {
     }
 
     return () => {
+
       if (componentRef.current) {
         observer.unobserve(componentRef.current);
       }
@@ -60,7 +62,7 @@ const AnnualMaintenanceContracts = () => {
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    
+
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
@@ -76,14 +78,14 @@ const AnnualMaintenanceContracts = () => {
   // Auto play only when component is visible and page is active
   useEffect(() => {
     if (!isAutoPlaying || !isVisible || document.hidden) return;
-    
+
     const interval = setInterval(() => {
       // Double-check visibility before updating to prevent scrolling to hidden components
       if (isVisible && !document.hidden) {
         setActiveTab(prev => (prev + 1) % amcServices.length);
       }
     }, 4000);
-    
+
     return () => clearInterval(interval);
   }, [isAutoPlaying, isVisible, amcServices.length]);
 
@@ -112,128 +114,128 @@ const AnnualMaintenanceContracts = () => {
   }, [activeTab, isVisible]);
 
   return (
-    <div id='annual-maintenance-contracts' ref={componentRef} className='w-full bg-gradient-to-br from-teal-50 to-cyan-50 py-6 text-sm'>
-      <div className='max-w-7xl mx-auto px-4'>
-        {/* Heading */}
-        <div className='text-center mb-4'>
-          <h1 className='text-3xl md:text-4xl font-bold text-[#2c3e50] mb-2'>📄 Annual Maintenance Contracts</h1>
-          <div className='w-20 h-1 bg-gradient-to-r from-teal-400 to-cyan-600 mx-auto'></div>
-        </div>
+    <>
+      <div id='annual-maintenance-contracts' ref={componentRef} className='w-full bg-gradient-to-br from-teal-50 to-cyan-50 py-6 text-sm'>
+        <div className='max-w-7xl mx-auto px-4'>
+          {/* Heading */}
+          <div className='text-center mb-4'>
+            <h1 className='text-3xl md:text-4xl font-bold text-[#2c3e50] mb-2'>📄 Annual Maintenance Contracts</h1>
+            <div className='w-20 h-1 bg-gradient-to-r from-teal-400 to-cyan-600 mx-auto'></div>
+          </div>
 
-        {/* Services & Details */}
-        <div className='mb-8 flex flex-col lg:flex-row gap-4'>
-          {/* Left Scrollable Section */}
-          <div className='lg:w-1/2 max-h-[340px] overflow-y-auto pr-2' ref={scrollContainerRef}>
-            <div className='sticky top-0 bg-teal-50 z-10 pb-2'>
-              <div className='flex items-center justify-between mb-3'>
-                <h2 className='text-base font-bold text-[#2c3e50]'>Our Services</h2>
-                <button
-                  onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                  className={`px-4 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
-                    isAutoPlaying 
-                      ? 'bg-gradient-to-r from-teal-400 to-cyan-600 text-white' 
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
-                >
-                  {isAutoPlaying ? 'Auto Playing' : 'Auto Play Off'}
-                </button>
+          {/* Services & Details */}
+          <div className='mb-8 flex flex-col lg:flex-row gap-4'>
+            {/* Left Scrollable Section */}
+            <div className='lg:w-1/2 max-h-[340px] overflow-y-auto pr-2' ref={scrollContainerRef}>
+              <div className='sticky top-0 bg-teal-50 z-10 pb-2'>
+                <div className='flex items-center justify-between mb-3'>
+                  <h2 className='text-base font-bold text-[#2c3e50]'>Our Services</h2>
+                  <button
+                    onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                    className={`px-4 py-1 rounded-full text-xs font-medium transition-all duration-300 ${isAutoPlaying
+                        ? 'bg-gradient-to-r from-teal-400 to-cyan-600 text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      }`}
+                  >
+                    {isAutoPlaying ? 'Auto Playing' : 'Auto Play Off'}
+                  </button>
+                </div>
+              </div>
+              <div className='space-y-3'>
+                {amcServices.map((service, index) => (
+                  <button
+                    key={index}
+                    ref={el => serviceRefs.current[index] = el}
+                    onClick={() => handleTabClick(index)}
+                    className={`w-full text-left p-3 rounded-xl transition-all duration-300 ${activeTab === index
+                        ? 'bg-gradient-to-r from-teal-400 to-cyan-600 text-white shadow-md'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 hover:shadow-sm'
+                      }`}
+                  >
+                    <div className='flex items-center space-x-3'>
+                      <span className='text-xl'>{service.icon}</span>
+                      <div>
+                        <h3 className='font-semibold text-sm'>{service.title}</h3>
+                        <p className={`text-xs mt-1 ${activeTab === index ? 'text-cyan-100' : 'text-gray-500'
+                          }`}>
+                          {service.description}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
-            <div className='space-y-3'>
-              {amcServices.map((service, index) => (
-                <button
-                  key={index}
-                  ref={el => serviceRefs.current[index] = el}
-                  onClick={() => handleTabClick(index)}
-                  className={`w-full text-left p-3 rounded-xl transition-all duration-300 ${
-                    activeTab === index
-                      ? 'bg-gradient-to-r from-teal-400 to-cyan-600 text-white shadow-md'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 hover:shadow-sm'
-                  }`}
-                >
-                  <div className='flex items-center space-x-3'>
-                    <span className='text-xl'>{service.icon}</span>
-                    <div>
-                      <h3 className='font-semibold text-sm'>{service.title}</h3>
-                      <p className={`text-xs mt-1 ${
-                        activeTab === index ? 'text-cyan-100' : 'text-gray-500'
-                      }`}>
-                        {service.description}
-                      </p>
-                    </div>
+
+            {/* Right Details Section */}
+            <div className='lg:w-1/2'>
+              <div className='bg-white rounded-xl shadow-md p-5 min-h-[340px] h-full'>
+                <div className='flex items-center space-x-4 mb-3'>
+                  <div className='w-10 h-10 bg-gradient-to-br from-teal-400 to-cyan-600 rounded-full flex items-center justify-center text-lg'>
+                    {amcServices[activeTab].icon}
                   </div>
-                </button>
+                  <div>
+                    <h3 className='text-lg font-bold text-[#2c3e50] mb-1'>{amcServices[activeTab].title}</h3>
+                    <p className='text-sm text-gray-600'>{amcServices[activeTab].description}</p>
+                  </div>
+                </div>
+
+                <div className='border-t pt-3'>
+                  <p className='text-sm text-gray-700 mb-3 leading-relaxed'>{amcServices[activeTab].details}</p>
+                  <h4 className='text-sm font-semibold text-[#2c3e50] mb-2'>Key Features:</h4>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+                    {amcServices[activeTab].features.map((feature, index) => (
+                      <div key={index} className='flex items-center space-x-2'>
+                        <Check className='w-4 h-4 text-teal-500' />
+                        <span className='text-xs text-gray-700'>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className='mt-4 pt-3 border-t'>
+                  <div className='flex justify-between items-center mb-2'>
+                    <span className='text-xs text-gray-500'>Service {activeTab + 1} of {amcServices.length}</span>
+                    <span className='text-xs text-gray-500'>
+                      {isAutoPlaying && isVisible ? 'Auto advancing...' : 'Manual navigation'}
+                    </span>
+                  </div>
+                  <div className='w-full bg-gray-200 rounded-full h-2'>
+                    <div
+                      className='bg-gradient-to-r from-teal-400 to-cyan-600 h-2 rounded-full transition-all duration-300'
+                      style={{ width: `${((activeTab + 1) / amcServices.length) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Benefits Section */}
+          <div>
+            <div className='text-center mb-4'>
+              <h2 className='text-2xl font-bold text-[#2c3e50]'>Why Choose Our AMC Services?</h2>
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+              {benefits.map((benefit, index) => (
+                <div
+                  key={index}
+                  className='group bg-white p-4 rounded-xl shadow border border-gray-200 hover:shadow-md transition-all duration-300 hover:-translate-y-1'
+                >
+                  <div className={`w-10 h-10 bg-gradient-to-br ${benefit.color} rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-105 transition-transform duration-300`}>
+                    <benefit.icon className='w-5 h-5 text-white' />
+                  </div>
+                  <h4 className='text-sm font-semibold text-[#2c3e50] mb-2 text-center'>{benefit.title}</h4>
+                  <p className='text-xs text-gray-600 text-center leading-snug'>{benefit.description}</p>
+                </div>
               ))}
             </div>
           </div>
-
-          {/* Right Details Section */}
-          <div className='lg:w-1/2'>
-            <div className='bg-white rounded-xl shadow-md p-5 min-h-[340px] h-full'>
-              <div className='flex items-center space-x-4 mb-3'>
-                <div className='w-10 h-10 bg-gradient-to-br from-teal-400 to-cyan-600 rounded-full flex items-center justify-center text-lg'>
-                  {amcServices[activeTab].icon}
-                </div>
-                <div>
-                  <h3 className='text-lg font-bold text-[#2c3e50] mb-1'>{amcServices[activeTab].title}</h3>
-                  <p className='text-sm text-gray-600'>{amcServices[activeTab].description}</p>
-                </div>
-              </div>
-
-              <div className='border-t pt-3'>
-                <p className='text-sm text-gray-700 mb-3 leading-relaxed'>{amcServices[activeTab].details}</p>
-                <h4 className='text-sm font-semibold text-[#2c3e50] mb-2'>Key Features:</h4>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-                  {amcServices[activeTab].features.map((feature, index) => (
-                    <div key={index} className='flex items-center space-x-2'>
-                      <Check className='w-4 h-4 text-teal-500' />
-                      <span className='text-xs text-gray-700'>{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className='mt-4 pt-3 border-t'>
-                <div className='flex justify-between items-center mb-2'>
-                  <span className='text-xs text-gray-500'>Service {activeTab + 1} of {amcServices.length}</span>
-                  <span className='text-xs text-gray-500'>
-                    {isAutoPlaying && isVisible ? 'Auto advancing...' : 'Manual navigation'}
-                  </span>
-                </div>
-                <div className='w-full bg-gray-200 rounded-full h-2'>
-                  <div 
-                    className='bg-gradient-to-r from-teal-400 to-cyan-600 h-2 rounded-full transition-all duration-300'
-                    style={{ width: `${((activeTab + 1) / amcServices.length) * 100}%` }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Benefits Section */}
-        <div>
-          <div className='text-center mb-4'>
-            <h2 className='text-2xl font-bold text-[#2c3e50]'>Why Choose Our AMC Services?</h2>
-          </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
-            {benefits.map((benefit, index) => (
-              <div
-                key={index}
-                className='group bg-white p-4 rounded-xl shadow border border-gray-200 hover:shadow-md transition-all duration-300 hover:-translate-y-1'
-              >
-                <div className={`w-10 h-10 bg-gradient-to-br ${benefit.color} rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-105 transition-transform duration-300`}>
-                  <benefit.icon className='w-5 h-5 text-white' />
-                </div>
-                <h4 className='text-sm font-semibold text-[#2c3e50] mb-2 text-center'>{benefit.title}</h4>
-                <p className='text-xs text-gray-600 text-center leading-snug'>{benefit.description}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

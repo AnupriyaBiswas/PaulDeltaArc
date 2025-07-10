@@ -43,7 +43,7 @@ const WhyPaulDeltaArc = () => {
                 <div className='text-3xl mb-3 group-hover:scale-110 transition-transform duration-300'>
                   {feature.icon}
                 </div>
-                <h3 className='text-base font-semibold text-[#2c3e50] group-hover:text-white transition-colors duration-300'>
+                <h3 className='text-base font-semibold text-[#2c3e50] group-hover:text-white transition-colors duration-300 whitespace-nowrap'>
                   {feature.title}
                 </h3>
               </div>

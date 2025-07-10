@@ -4,6 +4,12 @@ import VisionMission from '../components/VisionMission'
 import CoreValues from '../components/CoreValues'
 import WhyPaulDeltaArc from '../components/WhyPaulDeltaArc'
 import Services from '../components/Services'
+import FireProtectionSystems from '../components/FireProtectionSystems'
+import ElectricalSystemsVentilation from '../components/ElectricalSystemsVentilation'
+import PlumbingPublicHealth from '../components/PlumbingPublicHealth'
+import BuildingAutomation from '../components/BuildingAutomation'
+import SurveillanceAccessControl from '../components/SurveillanceAccessControl'
+import AnnualMaintenanceContracts from '../components/AnnualMaintenanceContracts'
 import IndustriesWeServe from '../components/IndustriesWeServe'
 import OurApproach from '../components/OurApproach'
 import Contact from '../components/Contact'
@@ -30,8 +36,8 @@ export default function Home() {
       <VisionMission />
       <CoreValues/>
       <WhyPaulDeltaArc />
-      <Services />
-      {/* <FireProtectionSystems />
+      {/* <Services />
+      <FireProtectionSystems />
       <ElectricalSystemsVentilation />
       <PlumbingPublicHealth />
       <BuildingAutomation />

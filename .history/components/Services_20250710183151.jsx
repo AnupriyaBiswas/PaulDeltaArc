@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const WhyPaulDeltaArc = () => {
+const Services = () => {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
@@ -10,17 +10,16 @@ const WhyPaulDeltaArc = () => {
   if (!hasMounted) return null;
 
   const features = [
-    { icon: "🏆", title: "MSME Registered" },
-    { icon: "⚙️", title: "End-to-End EPC Expertise" },
-    { icon: "👥", title: "In-house Technical & Design Team" },
-    { icon: "🌍", title: "PAN India Project Delivery" },
-    { icon: "⏰", title: "Timely Delivery, No Cost Overruns" },
-    { icon: "🔧", title: "AMC & Emergency Maintenance Backing" },
-    { icon: "📋", title: "Statutory Compliance: IS, NBC, NFPA, TAC, etc." }
+    { icon: "🏆", title: "Fire Protection & Detection Systems" },
+    { icon: "⚙️", title: "Electrical Systems & Ventilation" },
+    { icon: "👥", title: "Plumbing & Public Health Engineering" },
+    { icon: "🌍", title: "Building Automation & Smart Controls" },
+    { icon: "⏰", title: "Surveillance, Intercom & Access Control" },
+    { icon: "🔧", title: "Annual Maintenance Contracts" }
   ];
 
   return (
-    <div id='why-paul-delta-arc' className='w-full bg-gradient-to-br from-teal-50 to-cyan-50 py-8 min-h-screen flex items-center'>
+    <div id='services' className='w-full bg-gradient-to-br from-teal-50 to-cyan-50 py-8 min-h-screen flex items-center'>
       <div className='max-w-[1400px] mx-auto px-4 w-full'>
         {/* Header */}
         <div className='text-center mb-8'>
@@ -43,7 +42,7 @@ const WhyPaulDeltaArc = () => {
                 <div className='text-3xl mb-3 group-hover:scale-110 transition-transform duration-300'>
                   {feature.icon}
                 </div>
-                <h3 className='text-base font-semibold text-[#2c3e50] group-hover:text-white transition-colors duration-300'>
+                <h3 className='text-base font-semibold text-[#2c3e50] group-hover:text-white transition-colors duration-300 whitespace-nowrap'>
                   {feature.title}
                 </h3>
               </div>
@@ -70,4 +69,4 @@ const WhyPaulDeltaArc = () => {
   );
 };
 
-export default WhyPaulDeltaArc;
+export default Services;

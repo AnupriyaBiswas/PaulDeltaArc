@@ -30,7 +30,7 @@ const Navbar = () => {
     window.addEventListener('scroll', handleShadow);
   }, []);
 
-
+  
 
   return (
     <div
@@ -164,15 +164,26 @@ const Navbar = () => {
               </Link>
 
               {/* Mobile Dropdown */}
-              <Link href='/#services'>
-                <li
-                  onClick={() => setNav(false)}
-                  className='py-4 text-sm font-medium hover:text-teal-600 transition-colors duration-300 border-b border-gray-100 cursor-pointer'
-                >
-                  Services
-                </li>
-              </Link>
-
+              <li
+                onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                className='py-4 text-sm font-medium hover:text-teal-600 transition-colors duration-300 border-b border-gray-100 cursor-pointer flex items-center justify-between'
+              >
+                Services
+                <span className={`transform transition-transform duration-300 ${mobileDropdownOpen ? 'rotate-180' : ''}`}>
+                  ▼
+                </span>
+              </li>
+              {mobileDropdownOpen && (
+                <ul className='pl-4 text-sm bg-gray-50 rounded-lg mx-2 mb-2'>
+                  {services.map((item, idx) => (
+                    <Link href={item.link} key={idx}>
+                      <li onClick={() => setNav(false)} className='py-3 px-4 hover:text-teal-600 transition-colors duration-300 border-b border-gray-200 last:border-b-0 cursor-pointer font-medium'>
+                        {item.name}
+                      </li>
+                    </Link>
+                  ))}
+                </ul>
+              )}
 
               <Link href='/#industries-we-serve'>
                 <li onClick={() => setNav(false)} className='py-4 text-sm font-medium hover:text-teal-600 transition-colors duration-300 border-b border-gray-100 cursor-pointer'>

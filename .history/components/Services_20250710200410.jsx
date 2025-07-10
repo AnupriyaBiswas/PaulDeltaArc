@@ -39,10 +39,9 @@ const Services = () => {
         {/* Services Grid */}
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
           {features.map((feature, index) => (
-            <a
+            <div 
               key={index}
-              href={feature.href}
-              className='group relative cursor-pointer h-48 block'
+              className='group relative cursor-pointer h-48'
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
             >
@@ -92,7 +91,7 @@ const Services = () => {
               
               {/* Shadow Card */}
               <div className='absolute inset-0 bg-gradient-to-br from-teal-200/20 to-cyan-200/20 rounded-3xl transform translate-y-2 translate-x-2 -z-10 group-hover:translate-y-1 group-hover:translate-x-1 transition-transform duration-300'></div>
-            </a>
+            </div>
           ))}
         </div>
       </div>

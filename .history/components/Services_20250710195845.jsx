@@ -20,7 +20,7 @@ const Services = () => {
   ];
 
   return (
-    <div id='services' className='w-full bg-gradient-to-br from-teal-50 to-cyan-50 py-12 h-screen flex items-center relative overflow-hidden'>
+    <div id='services' className='w-full bg-gradient-to-br from-teal-50 to-cyan-50 py-20 min-h-screen flex items-center relative overflow-hidden'>
       {/* Floating Background Elements */}
       <div className='absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-teal-200/20 to-cyan-200/20 rounded-full blur-xl'></div>
       <div className='absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-cyan-200/20 to-teal-200/20 rounded-full blur-xl'></div>
@@ -28,34 +28,33 @@ const Services = () => {
       
       <div className='max-w-7xl mx-auto px-4 relative z-10'>
         {/* Header */}
-        <div className='text-center mb-8'>
-          <h2 className='text-3xl font-bold text-[#2c3e50] mb-3 tracking-wide'>⚙️ Our Services</h2>
-          <div className='w-20 h-1 bg-gradient-to-r from-teal-400 to-cyan-600 rounded-full mx-auto'></div>
-          <p className='mt-3 text-gray-600 max-w-2xl mx-auto text-sm'>
+        <div className='text-center mb-16'>
+          <h2 className='text-4xl font-bold text-[#2c3e50] mb-4 tracking-wide'>⚙️ Our Services</h2>
+          <div className='w-24 h-1 bg-gradient-to-r from-teal-400 to-cyan-600 rounded-full mx-auto'></div>
+          <p className='mt-4 text-gray-600 max-w-3xl mx-auto text-base'>
             Our specialized services blend technology and precision for reliable, compliant, and scalable MEP solutions.
           </p>
         </div>
         
         {/* Services Grid */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
           {features.map((feature, index) => (
-            <a
+            <div 
               key={index}
-              href={feature.href}
-              className='group relative cursor-pointer h-48 block'
+              className='group relative cursor-pointer'
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
             >
               {/* Main Card */}
-              <div className='relative p-6 bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-white/50 h-full flex flex-col'>
+              <div className='relative p-8 bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-white/50'>
                 
                 {/* Animated Background Gradient */}
                 <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
                 
                 {/* Floating Icon Container */}
-                <div className='relative z-10 flex items-center justify-center mb-4'>
+                <div className='relative z-10 flex items-center justify-center mb-6'>
                   <div className='relative'>
-                    <div className='w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-100 to-cyan-100 flex items-center justify-center text-2xl shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-110'>
+                    <div className='w-20 h-20 rounded-2xl bg-gradient-to-br from-teal-100 to-cyan-100 flex items-center justify-center text-3xl shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-110'>
                       {feature.icon}
                     </div>
                     {/* Pulsing Ring */}
@@ -64,25 +63,23 @@ const Services = () => {
                 </div>
                 
                 {/* Title */}
-                <div className='flex-1 flex items-center justify-center'>
-                  <h3 className='relative z-10 text-base font-semibold text-center text-[#2c3e50] group-hover:text-teal-600 transition-colors duration-300 leading-snug'>
-                    {feature.title}
-                  </h3>
-                </div>
+                <h3 className='relative z-10 text-lg font-semibold text-center text-[#2c3e50] group-hover:text-teal-600 transition-colors duration-300 leading-snug mb-4'>
+                  {feature.title}
+                </h3>
                 
                 {/* Explore Button */}
-                <div className='relative z-10 flex justify-center mt-3'>
-                  <div className='px-4 py-1.5 bg-gradient-to-r from-teal-500 to-cyan-500 text-white text-xs rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-md hover:shadow-lg'>
+                <div className='relative z-10 flex justify-center'>
+                  <div className='px-6 py-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white text-sm rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-md hover:shadow-lg'>
                     Explore Service
                   </div>
                 </div>
                 
                 {/* Decorative Elements */}
-                <div className='absolute top-3 right-3 w-2 h-2 bg-teal-400 rounded-full opacity-20 group-hover:opacity-60 transition-opacity duration-300'></div>
-                <div className='absolute bottom-3 left-3 w-1.5 h-1.5 bg-cyan-400 rounded-full opacity-20 group-hover:opacity-60 transition-opacity duration-300'></div>
+                <div className='absolute top-4 right-4 w-3 h-3 bg-teal-400 rounded-full opacity-20 group-hover:opacity-60 transition-opacity duration-300'></div>
+                <div className='absolute bottom-4 left-4 w-2 h-2 bg-cyan-400 rounded-full opacity-20 group-hover:opacity-60 transition-opacity duration-300'></div>
                 
                 {/* Card Number */}
-                <div className='absolute top-3 left-3 w-6 h-6 bg-gradient-to-br from-teal-500/10 to-cyan-500/10 rounded-full flex items-center justify-center text-xs font-bold text-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                <div className='absolute top-4 left-4 w-8 h-8 bg-gradient-to-br from-teal-500/10 to-cyan-500/10 rounded-full flex items-center justify-center text-sm font-bold text-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                   {index + 1}
                 </div>
                 
@@ -92,8 +89,18 @@ const Services = () => {
               
               {/* Shadow Card */}
               <div className='absolute inset-0 bg-gradient-to-br from-teal-200/20 to-cyan-200/20 rounded-3xl transform translate-y-2 translate-x-2 -z-10 group-hover:translate-y-1 group-hover:translate-x-1 transition-transform duration-300'></div>
-            </a>
+            </div>
           ))}
+        </div>
+        
+        {/* Bottom CTA */}
+        <div className='text-center mt-16'>
+          <div className='inline-flex items-center gap-2 px-8 py-4 bg-white/60 backdrop-blur-sm rounded-full shadow-lg border border-white/30 hover:bg-white/80 transition-all duration-300 cursor-pointer group'>
+            <span className='text-[#2c3e50] font-semibold'>Ready to get started?</span>
+            <div className='w-8 h-8 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full flex items-center justify-center text-white text-sm transform group-hover:scale-110 transition-transform duration-300'>
+              →
+            </div>
+          </div>
         </div>
       </div>
     </div>

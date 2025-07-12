@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 const Main = () => {
   const canvasRef = useRef(null);
@@ -7,17 +7,16 @@ const Main = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    
+    const ctx = canvas.getContext("2d");
+
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
 
-    // Beam class
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
     class Beam {
       constructor() {
         this.reset();
@@ -28,28 +27,27 @@ const Main = () => {
       }
 
       reset() {
-        // Start from random edge
         const edge = Math.floor(Math.random() * 4);
-        switch(edge) {
-          case 0: // top
+        switch (edge) {
+          case 0:
             this.x = Math.random() * canvas.width;
             this.y = -50;
             this.vx = (Math.random() - 0.5) * 4;
             this.vy = Math.random() * 3 + 1;
             break;
-          case 1: // right
+          case 1:
             this.x = canvas.width + 50;
             this.y = Math.random() * canvas.height;
             this.vx = -(Math.random() * 3 + 1);
             this.vy = (Math.random() - 0.5) * 4;
             break;
-          case 2: // bottom
+          case 2:
             this.x = Math.random() * canvas.width;
             this.y = canvas.height + 50;
             this.vx = (Math.random() - 0.5) * 4;
             this.vy = -(Math.random() * 3 + 1);
             break;
-          case 3: // left
+          case 3:
             this.x = -50;
             this.y = Math.random() * canvas.height;
             this.vx = Math.random() * 3 + 1;
@@ -62,18 +60,18 @@ const Main = () => {
 
       getRandomColor() {
         const colors = [
-          '#14B8A6', // Teal-500 (Primary)
-          '#0D9488', // Teal-600
-          '#EC4899', // Pink-500
-          '#BE185D', // Pink-700
-          '#A855F7', // Purple-500
-          '#7C3AED', // Purple-600
+          "#14B8A6",
+          "#0D9488",
+          "#EC4899",
+          "#BE185D",
+          "#A855F7",
+          "#7C3AED",
         ];
         return colors[Math.floor(Math.random() * colors.length)];
       }
 
       update() {
-        this.trail.push({x: this.x, y: this.y});
+        this.trail.push({ x: this.x, y: this.y });
         if (this.trail.length > this.trailLength) {
           this.trail.shift();
         }
@@ -81,33 +79,37 @@ const Main = () => {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Reset if out of bounds
-        if (this.x < -100 || this.x > canvas.width + 100 || 
-            this.y < -100 || this.y > canvas.height + 100) {
+        if (
+          this.x < -100 ||
+          this.x > canvas.width + 100 ||
+          this.y < -100 ||
+          this.y > canvas.height + 100
+        ) {
           this.reset();
         }
       }
 
       draw(ctx) {
-        // Draw trail
         for (let i = 0; i < this.trail.length; i++) {
           const point = this.trail[i];
           const trailOpacity = (i / this.trail.length) * this.opacity;
           const trailWidth = (i / this.trail.length) * this.width;
-          
+
           ctx.beginPath();
           ctx.arc(point.x, point.y, trailWidth, 0, Math.PI * 2);
-          ctx.fillStyle = `${this.color}${Math.floor(trailOpacity * 255).toString(16).padStart(2, '0')}`;
+          ctx.fillStyle = `${this.color}${Math.floor(trailOpacity * 255)
+            .toString(16)
+            .padStart(2, "0")}`;
           ctx.fill();
         }
 
-        // Draw main beam
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
-        ctx.fillStyle = `${this.color}${Math.floor(this.opacity * 255).toString(16).padStart(2, '0')}`;
+        ctx.fillStyle = `${this.color}${Math.floor(this.opacity * 255)
+          .toString(16)
+          .padStart(2, "0")}`;
         ctx.fill();
 
-        // Add glow effect
         ctx.shadowBlur = 10;
         ctx.shadowColor = this.color;
         ctx.beginPath();
@@ -125,11 +127,9 @@ const Main = () => {
       }
 
       collide(other) {
-        // Create collision effect
         const midX = (this.x + other.x) / 2;
         const midY = (this.y + other.y) / 2;
-        
-        // Create particles
+
         for (let i = 0; i < 5; i++) {
           const particle = {
             x: midX,
@@ -137,12 +137,11 @@ const Main = () => {
             vx: (Math.random() - 0.5) * 6,
             vy: (Math.random() - 0.5) * 6,
             life: 30,
-            color: this.color
+            color: this.color,
           };
           particles.push(particle);
         }
 
-        // Bounce off each other
         const tempVx = this.vx;
         const tempVy = this.vy;
         this.vx = other.vx;
@@ -150,7 +149,6 @@ const Main = () => {
         other.vx = tempVx;
         other.vy = tempVy;
 
-        // Add some randomness
         this.vx += (Math.random() - 0.5) * 2;
         this.vy += (Math.random() - 0.5) * 2;
         other.vx += (Math.random() - 0.5) * 2;
@@ -158,7 +156,6 @@ const Main = () => {
       }
     }
 
-    // Initialize beams
     const beams = [];
     const particles = [];
     for (let i = 0; i < 8; i++) {
@@ -169,12 +166,10 @@ const Main = () => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update and draw beams
       for (let i = 0; i < beams.length; i++) {
         beams[i].update();
         beams[i].draw(ctx);
 
-        // Check collisions
         for (let j = i + 1; j < beams.length; j++) {
           if (beams[i].checkCollision(beams[j])) {
             beams[i].collide(beams[j]);
@@ -182,7 +177,6 @@ const Main = () => {
         }
       }
 
-      // Update and draw particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const particle = particles[i];
         particle.x += particle.vx;
@@ -199,7 +193,9 @@ const Main = () => {
         const alpha = particle.life / 30;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `${particle.color}${Math.floor(alpha * 255).toString(16).padStart(2, '0')}`;
+        ctx.fillStyle = `${particle.color}${Math.floor(alpha * 255)
+          .toString(16)
+          .padStart(2, "0")}`;
         ctx.fill();
       }
 
@@ -209,7 +205,7 @@ const Main = () => {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -217,44 +213,43 @@ const Main = () => {
   }, []);
 
   return (
-    <div id='home' className='w-full h-screen text-center relative overflow-hidden bg-gradient-to-br from-teal-50 to-cyan-50'>
-      {/* Animated Background Canvas */}
+    <div
+      id="home"
+      className="w-full h-screen text-center relative overflow-hidden bg-gradient-to-br from-teal-50 to-cyan-50"
+    >
       <canvas
         ref={canvasRef}
-        className='absolute inset-0 w-full h-full pointer-events-none'
+        className="absolute inset-0 w-full h-full pointer-events-none"
         style={{ zIndex: 1 }}
       />
-      
-      {/* Subtle grid overlay */}
-      <div 
-        className='absolute inset-0 opacity-15'
+
+      <div
+        className="absolute inset-0 opacity-15"
         style={{
           backgroundImage: `
             linear-gradient(rgba(196, 181, 253, 0.3) 1px, transparent 1px),
             linear-gradient(90deg, rgba(196, 181, 253, 0.3) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px',
-          zIndex: 2
+          backgroundSize: "50px 50px",
+          zIndex: 2,
         }}
       />
 
-      {/* Main Content */}
-      <div className='max-w-[1240px] w-full h-full mx-auto p-2 flex justify-center items-center relative z-10'>
+      <div className="max-w-[1240px] w-full h-full mx-auto p-2 flex justify-center items-center relative z-10">
         <div>
-          <h1 className='py-4 text-gray-800 text-5xl md:text-6xl font-bold tracking-wide drop-shadow-lg'>
-            <span className='inline-block animate-pulse bg-gradient-to-r from-teal-600 via-pink-600 to-purple-600 bg-clip-text text-transparent'>Paul Delta Arc</span>
+          <h1 className="py-4 text-gray-800 text-5xl md:text-6xl font-bold tracking-wide drop-shadow-lg">
+            <span className="inline-block animate-pulse bg-gradient-to-r from-teal-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
+              Paul Delta Arc
+            </span>
           </h1>
-          
-          <p className='py-4 text-gray-700 sm:max-w-[80%] m-auto text-sm md:text-base font-light tracking-wide'>
+
+          <p className="py-4 text-gray-700 sm:max-w-[80%] m-auto text-sm md:text-base font-light tracking-wide">
             Powering Precision, Delivering Reliability
           </p>
-          
-          <div className='flex justify-center py-6'>
-            <a
-              href='#contact'
-              className='group'
-            >
-              <button className='px-6 py-3 bg-gradient-to-r from-teal-500 to-pink-500 text-white font-medium text-sm rounded-full shadow-lg shadow-teal-500/40 hover:scale-110 hover:shadow-teal-500/60 transition-all duration-300 ease-in-out hover:from-pink-500 hover:to-purple-500 border border-teal-400/50 hover:border-pink-400/50'>
+
+          <div className="flex justify-center py-6">
+            <a href="mailto:info@pauldeltaarc.com" className="group">
+              <button className="px-6 py-3 bg-gradient-to-r from-teal-500 to-pink-500 text-white font-medium text-sm rounded-full shadow-lg shadow-teal-500/40 hover:scale-110 hover:shadow-teal-500/60 transition-all duration-300 ease-in-out hover:from-pink-500 hover:to-purple-500 border border-teal-400/50 hover:border-pink-400/50">
                 Get Quote
               </button>
             </a>

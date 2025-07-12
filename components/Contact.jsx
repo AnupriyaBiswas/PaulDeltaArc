@@ -70,7 +70,7 @@ const Contact = () => {
           <div className="flex flex-col justify-between">
             <div className="text-center md:text-left mb-8 md:mb-0">
               <p className="text-lg font-semibold text-gray-800">
-                We're always happy to talk!
+                We&#39;re always happy to talk!
               </p>
               <p className="text-sm text-gray-600 mt-2">
                 Feel free to call us or drop an email. We're here to help with

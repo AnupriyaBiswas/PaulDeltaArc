@@ -73,7 +73,7 @@ const Contact = () => {
                 We&#39;re always happy to talk!
               </p>
               <p className="text-sm text-gray-600 mt-2">
-                Feel free to call us or drop an email. We're here to help with
+                Feel free to call us or drop an email. We&#39;re here to help with
                 your electrical & engineering needs.
               </p>
             </div>

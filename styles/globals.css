@@ -2,46 +2,483 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Root Variables for Professional Theme */
+:root {
+  --primary-teal: #14B8A6;
+  --primary-teal-dark: #0D9488;
+  --primary-slate: #0f172a;
+  --secondary-slate: #1e293b;
+  --accent-cyan: #06b6d4;
+  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-border: rgba(20, 184, 166, 0.2);
+}
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Inter', 'Raleway', sans-serif;
   overflow-x: hidden;
   max-width: 100vw;
 }
 
+/* Prevent flash of unstyled content */
+.no-fouc {
+  opacity: 0;
+}
 
+.loaded {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
 
 @layer base {
   body {
-    @apply bg-[#ecf0f3] text-[#1f2937] tracking-wide;
+    /* FIXED: Removed the global dark background that was causing teal haze */
+    @apply bg-white text-gray-900 tracking-wide antialiased;
     overflow-x: hidden;
     max-width: 100vw;
+    min-height: 100vh;
+    font-feature-settings: 'kern' 1, 'liga' 1;
   }
 
+  /* Enhanced scrollbar for professional look */
+  ::-webkit-scrollbar {
+    width: 8px;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
   }
 
-  h1 {
-    @apply text-4xl sm:text-5xl md:text-6xl font-[Raleway]
+  ::-webkit-scrollbar-thumb {
+    @apply bg-teal-600 rounded-full;
   }
 
-  h2 {
-    @apply text-3xl sm:text-4xl
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-teal-500;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-teal-500/30 text-white;
+  }
+}
+
+/* Professional Typography - Updated for light theme compatibility */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-gray-900;
+  font-family: 'Inter', 'Raleway', sans-serif;
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+h2 {
+  @apply text-3xl sm:text-4xl md:text-5xl;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h3 {
+  @apply text-2xl sm:text-3xl;
+  font-weight: 600;
+}
+
+h4 {
+  @apply text-xl sm:text-2xl;
+  font-weight: 500;
+}
+
+h5 {
+  @apply text-lg sm:text-xl;
+  font-weight: 500;
+}
+
+h6 {
+  @apply text-base sm:text-lg;
+  font-weight: 500;
+}
+
+/* Professional List Styling */
+li {
+  @apply cursor-pointer transition-colors duration-300;
+}
+
+/* Professional Button Styling */
+button {
+  @apply font-medium rounded-lg transition-all duration-300 ease-out;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.025em;
+}
+
+/* Professional Glass Effect Utilities */
+@layer components {
+  .glass-effect {
+    @apply backdrop-blur-xl border border-white/10;
+    background: var(--glass-bg);
+  }
+
+  .glass-card {
+    @apply glass-effect rounded-xl p-6 shadow-2xl;
+  }
+
+  .professional-gradient {
+    @apply bg-gradient-to-r from-teal-600 to-teal-500;
+  }
+
+  .professional-gradient-hover {
+    @apply hover:from-teal-500 hover:to-cyan-500;
+  }
+
+  .professional-shadow {
+    @apply shadow-2xl shadow-teal-500/25;
+  }
+
+  .professional-border {
+    @apply border border-teal-400/30;
+  }
+
+  /* Professional Text Gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-teal-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-secondary {
+    @apply bg-gradient-to-r from-white via-teal-100 to-white bg-clip-text text-transparent;
+  }
+
+  /* NEW: Dark theme variant for Main component */
+  .dark-theme-content h1,
+  .dark-theme-content h2,
+  .dark-theme-content h3,
+  .dark-theme-content h4,
+  .dark-theme-content h5,
+  .dark-theme-content h6 {
+    @apply text-white;
+  }
+
+  .dark-theme-content p {
+    @apply text-gray-300;
+  }
+
+  /* Professional Animations */
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .fade-in-down {
+    animation: fadeInDown 0.8s ease-out forwards;
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+
+  /* Professional Hover Effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 30px rgba(20, 184, 166, 0.3);
+  }
+
+  /* Professional Loading Animations */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 2s infinite;
+    content: '';
+  }
+
+  /* Professional Card Styles - Updated for light theme */
+  .service-card {
+    @apply bg-white rounded-xl p-6 shadow-xl border border-gray-200 hover:border-teal-500/50 hover-lift hover-glow transition-all duration-300;
+  }
+
+  .industry-card {
+    @apply bg-white rounded-xl p-6 border border-gray-200 hover:border-teal-500/50 transition-all duration-300 shadow-lg hover:shadow-xl;
+  }
+
+  /* Professional Form Styles - Updated for light theme */
+  .professional-input {
+    @apply bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all duration-300;
+  }
+
+  .professional-textarea {
+    @apply professional-input resize-none;
+  }
+
+  /* Professional Section Styling */
+  .section-container {
+    @apply max-w-[1240px] mx-auto px-4 py-16;
+  }
+
+  .section-header {
+    @apply text-center mb-12;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-bold text-gradient-primary mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-xl text-gray-600 max-w-3xl mx-auto;
+  }
+}
+
+/* Professional Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(20, 184, 166, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(20, 184, 166, 0.6); }
+}
+
+/* Professional Responsive Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-professional {
+    @apply bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900;
+  }
+
+  .bg-section {
+    @apply bg-gray-50;
+  }
+
+  /* Professional spacing utilities */
+  .section-padding {
+    @apply py-16 lg:py-24;
+  }
+
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* Professional print styles */
+@media print {
+  body {
+    @apply bg-white text-black;
   }
   
-  li {
-    @apply cursor-pointer
+  .glass-effect {
+    @apply bg-white border-gray-300;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass-effect {
+    @apply bg-slate-900 border-white;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-teal-500;
+}
+
+/* Professional link styles */
+a {
+  @apply transition-colors duration-300;
+}
+
+a:hover {
+  @apply text-teal-600;
+}
+
+/* Advanced Transition Utilities */
+@layer components {
+  .page-enter {
+    animation: pageEnter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
 
-  button {
-    @apply shadow-xl shadow-gray-400 rounded-xl uppercase bg-gradient-to-r from-[#5651e5] to-[#709dff] text-white
+  .page-exit {
+    animation: pageExit 0.8s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
   }
 
+  .content-reveal {
+    animation: contentReveal 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
 
+  .loader-morph {
+    animation: loaderMorph 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+}
 
+/* Sophisticated Animation Keyframes */
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    filter: blur(4px);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(10px) scale(0.99);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes pageExit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(1.02);
+    filter: blur(4px);
+  }
+}
+
+@keyframes contentReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(5px) scale(1.01);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes loaderMorph {
+  0% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05) rotate(2deg);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1) rotate(-2deg);
+    filter: blur(8px);
+  }
+}
+
+/* Particle Animation */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-20px) rotate(180deg); 
+    opacity: 1;
+  }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}

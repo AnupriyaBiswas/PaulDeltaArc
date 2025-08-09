@@ -1,0 +1,17 @@
+Thrilled to unveil a recent project we had the chance to work on —
+A full-fledged website designed and built for Paul Delta Arc, a Kolkata-based company offering Mechanical-Electrical-Plumbing (MEP) services across India. 💼✨
+🔗 pauldeltaarc.com
+
+From concept to deployment, we poured care into the UI, interactions, layout balance, and the overall brand feel.
+👨‍💻 Built using Next.js + TailwindCSS, this site challenged us to:
+Keep things performance-friendly without compromising on aesthetic polish
+Handle mobile responsiveness across complex grid layouts & hover effects
+Maintain visual clarity despite info-heavy sections
+Use subtle animations that enhance, not distract
+
+🎨 Some of our favorite design moments:
+Gradient backgrounds and icon-led service tiles
+Floating effects and micro-interactions
+Custom navbar
+
+🤝 A joint effort by Anupriya Biswas and Suman Prasad — shaping both the visuals and the functionality behind the screen.
